@@ -10,29 +10,35 @@ const questions = () => {
   return inquirer.prompt([
     {
       type: 'input',
-      name: 'GitHubUsername',
-      message: 'What is your GitHub username? '
-    },
-    {
-      type: 'input',
-      name: 'email',
-      message: 'What is your email address? '
-    },
-    {
-      type: 'input',
       name: 'title',
-      message: 'What is the title of your project? ' 
+      message: 'What is the title of your project? (Required) ',
+      validate: titleInput => {
+        if (titleInput) {
+          return true;
+        } else {
+          console.log('Please enter a project title! ');
+          return false;
+        }
+      }
     },
     {
       type: 'input',
       name: 'description',
-      message: 'Please enter a description of your project: '
+      message: 'Please enter a description of your project: (Required) ',
+      validate: descriptionInput => {
+        if (descriptionInput) {
+          return true;
+        } else {
+          console.log('Please enter a project description! ');
+          return false;
+        }
+      }
     },
     {
       type: 'input',
       name: 'installationInstructions',
       message: 'What are the steps required to install your project? '
-    },  
+    },
     {
       type: 'input',
       name: 'usageInformation',
@@ -57,20 +63,67 @@ const promptLicense = () => {
   Choose a license
   ====================
   `);
-    return inquirer.prompt([
-      {
-        type: 'list',
-        name: 'license',
-        message: 'Which license would you like to use for your application? ',
-        choices: ['MIT License', 'GNU GPLv3', 'GNU AGPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'Boost Software License 1.0', 'The Unlicense']
+  return inquirer.prompt([
+    {
+      type: 'list',
+      name: 'license',
+      message: 'Which license would you like to use for your application? (Required) ',
+      choices: ['MIT License', 'GNU GPLv3', 'GNU AGPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'Boost Software License 1.0', 'The Unlicense'],
+      validate: licenseList => {
+        if (licenseList) {
+          return true;
+        } else {
+          console.log('Please enter a choice for a license! ');
+          return false;
+        }
       }
-    ]);
-  };
+    }
+  ]);
+};
+
+const promptQuestions = () => {
+  console.log(`
+  ====================
+  Questions
+  ====================
+  `);
+  return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'gitHubUsername',
+      message: 'What is your GitHub username? (Required) ',
+      validate: gitHubUsernameInput => {
+        if (gitHubUsernameInput) {
+          return true;
+        } else {
+          console.log('Please enter a GitHub username! ');
+          return false;
+        }
+      }
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: 'What is your email address? (Required) ',
+      validate: emailInput => {
+        if (emailInput) {
+          return true;
+        } else {
+          console.log('Please enter an email address! ');
+          return false;
+        }
+      }
+    }
+  ]);
+};
 
 questions()
   .then(answers => console.log(answers))
   .then(promptLicense)
-  .then(projectAnswers => console.log(projectAnswers));
+  .then(licenseAnswer => console.log(licenseAnswer))
+  .then(promptQuestions)
+  .then(questionsAnswers => console.log(questionsAnswers))
+  .catch(err => console.log(err));
 
 
 // function to write README file
