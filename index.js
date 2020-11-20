@@ -1,9 +1,6 @@
 const inquirer = require('inquirer');
-
-//const fs = require('fs');
-//const generatePage = require('./src/page-template.js');
-
-//const pageHTML = generatePage(name, github);
+const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // array of questions for user
 const questions = () => {
@@ -68,7 +65,16 @@ const promptLicense = () => {
       type: 'list',
       name: 'license',
       message: 'Which license would you like to use for your application? (Required) ',
-      choices: ['MIT License', 'GNU GPLv3', 'GNU AGPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'Boost Software License 1.0', 'The Unlicense'],
+      choices: [
+        'MIT License',
+         'GNU GPLv3',
+         'GNU AGPLv3',
+         'GNU LGPLv3', 
+         'Mozilla Public License 2.0', 
+         'Apache License 2.0', 
+         'Boost Software License 1.0', 
+         'The Unlicense',
+         'None'],
       validate: licenseList => {
         if (licenseList) {
           return true;
