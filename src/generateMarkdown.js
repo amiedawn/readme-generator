@@ -1,3 +1,5 @@
+'use strict'
+
 // function to generate markdown for README
 function generateMarkdown(data) {
   return `
@@ -42,7 +44,7 @@ ${data.tests}
 
 ## Questions:
 
-Please feel free to contact me at the following:
+Please feel free to contact the author of this project at the following:
 
 [GitHub: ](https://github.com/${data.gitHubUsername})
 

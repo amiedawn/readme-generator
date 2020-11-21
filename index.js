@@ -1,6 +1,12 @@
+'use strict'
+
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateMarkdown = require('./utils/generateMarkdown.js');
+const util = require("util");
+//const { resolve } = require('path');
+
+const generateMarkdown = require('./src/generateMarkdown.js');
+const writeFileAsync = util.promisify(fs.writeFile);
 
 // array of questions for user
 const questions = () => {
@@ -48,33 +54,23 @@ const questions = () => {
     },
     {
       type: 'input',
-      name: ' tests',
+      name: 'tests',
       message: 'Please enter any tests for your application, if you have any: ',
-    }
-  ]);
-};
-
-const promptLicense = () => {
-  console.log(`
-  ====================
-  Choose a license
-  ====================
-  `);
-  return inquirer.prompt([
+    },
     {
       type: 'list',
       name: 'license',
       message: 'Which license would you like to use for your application? (Required) ',
       choices: [
         'MIT License',
-         'GNU GPLv3',
-         'GNU AGPLv3',
-         'GNU LGPLv3', 
-         'Mozilla Public License 2.0', 
-         'Apache License 2.0', 
-         'Boost Software License 1.0', 
-         'The Unlicense',
-         'None'],
+        'GNU GPLv3',
+        'GNU AGPLv3',
+        'GNU LGPLv3',
+        'Mozilla Public License 2.0',
+        'Apache License 2.0',
+        'Boost Software License 1.0',
+        'The Unlicense',
+        'None'],
       validate: licenseList => {
         if (licenseList) {
           return true;
@@ -83,17 +79,7 @@ const promptLicense = () => {
           return false;
         }
       }
-    }
-  ]);
-};
-
-const promptQuestions = () => {
-  console.log(`
-  ====================
-  Questions
-  ====================
-  `);
-  return inquirer.prompt([
+    },
     {
       type: 'input',
       name: 'gitHubUsername',
@@ -123,29 +109,34 @@ const promptQuestions = () => {
   ]);
 };
 
-questions()
-  .then(answers => console.log(answers))
-  .then(promptLicense)
-  .then(licenseAnswer => console.log(licenseAnswer))
-  .then(promptQuestions)
-  .then(questionsAnswers => console.log(questionsAnswers))
-  .catch(err => console.log(err));
-
-
 // function to write README file
 function writeToFile(fileName, data) {
-}
+  fs.writeFile(fileName, data, err => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log('README file created!')
+  })
+};
 
 // function to initialize program
-function init() {
+async function init() {
+  try {
+    // ask questions and generate answers
+    const answers = await questions();
+    const generateData = generateMarkdown(answers);
 
+    // write markdown file to dist folder
+    await writeFileAsync('./dist/README.md', generateData);
+    console.log('successful file written');
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 // function call to initialize program
 init();
 
-//fs.writeFile('index.html', pageHTML, err => {
-//  if (err) throw err;
 
-//  console.log('Portfolio complete! Check out index.html to see the output!');
-//});
+
+//module.exports = { writeFile };
