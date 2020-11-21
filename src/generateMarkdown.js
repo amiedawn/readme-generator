@@ -6,20 +6,18 @@ function generateMarkdown(data) {
 # ${data.title}
 
 
- <![License: ${data.license}>(https://img.shields.io/badge/License-${data.license})]<https://opensource.org/licenses/${data.license}>
-  
- 
-
+![License](https://img.shields.io/badge/License-${data.license}-green.svg)
 
 # Table of Contents:
 * [Description](#description)
-* [Installation](#installationInstructions)
-* [Usage](#usageInformation)
+* [Installation Instructions](#installation-instructions)
+* [Usage Information](#usage-information)
 * [License](#license)
-* [Contributing](#contributionGuidelines)
+* [Contribution Guidelines](#contribution-guidelines)
 * [Tests](#tests)
+* [Questions](#questions)
 
-## Description:
+## Description: 
 
 ${data.description}
 
@@ -27,25 +25,25 @@ ${data.description}
 
 ${data.installationInstructions}
 
-## Usage (Instructions, Examples, and/or Screenshots):
+## Usage Information:
 
 ${data.usageInformation}
 
 ## License:
 
-${data.license}
+This site is under this license: ${data.license}
 
-For details on this license, please follow: <https://opensource.org/licenses/${data.license}>
+For details on this license, please follow: https://opensource.org/licenses/${data.license}
 
 ## Contribution Guidelines:
 
 ${data.contributionGuidelines}
 
-## Tests (Optional):
+## Tests:
 
 ${data.tests}
 
-## Questions:
+## Questions?
 
 Please feel free to contact the author of this project at the following:
 

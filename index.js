@@ -2,15 +2,9 @@
 
 const inquirer = require('inquirer');
 const fs = require('fs');
-const util = require("util");
-//const { resolve } = require('path');
-
 const generateMarkdown = require('./src/generateMarkdown.js');
-const writeFileAsync = util.promisify(fs.writeFile);
 
-// array of questions for user
-const questions = () => {
-  return inquirer.prompt([
+const questions = [
     {
       type: 'input',
       name: 'title',
@@ -62,15 +56,9 @@ const questions = () => {
       name: 'license',
       message: 'Which license would you like to use for your application? (Required) ',
       choices: [
-        'MIT License',
-        'GNU GPLv3',
-        'GNU AGPLv3',
-        'GNU LGPLv3',
-        'Mozilla Public License 2.0',
-        'Apache License 2.0',
-        'Boost Software License 1.0',
-        'The Unlicense',
-        'None'],
+        'MIT',
+        'Zlib',
+        'ISC'],
       validate: licenseList => {
         if (licenseList) {
           return true;
@@ -106,8 +94,7 @@ const questions = () => {
         }
       }
     }
-  ]);
-};
+];
 
 // function to write README file
 function writeToFile(fileName, data) {
@@ -119,24 +106,13 @@ function writeToFile(fileName, data) {
   })
 };
 
-// function to initialize program
-async function init() {
-  try {
-    // ask questions and generate answers
-    const answers = await questions();
+function init() {
+  inquirer.prompt(questions)
+    .then (answers => {
     const generateData = generateMarkdown(answers);
-
-    // write markdown file to dist folder
-    await writeFileAsync('./dist/README.md', generateData);
-    console.log('successful file written');
-  } catch (err) {
-    console.log(err);
-  }
+    writeToFile('./dist/README.md', generateData);
+    })
 }
-
 // function call to initialize program
 init();
 
-
-
-//module.exports = { writeFile };
