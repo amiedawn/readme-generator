@@ -5,7 +5,11 @@ function generateMarkdown(data) {
   return `
 # ${data.title}
 
-![License](https://img.shields.io/badge/License-${data.license}-blue.svg "License Badge")
+
+ <![License: ${data.license}>(https://img.shields.io/badge/License-${data.license})]<https://opensource.org/licenses/${data.license}>
+  
+ 
+
 
 # Table of Contents:
 * [Description](#description)
@@ -31,8 +35,7 @@ ${data.usageInformation}
 
 ${data.license}
 
-For details on this license, please follow:
-* [License](https://opensource.org/licenses/${data.license})
+For details on this license, please follow: <https://opensource.org/licenses/${data.license}>
 
 ## Contribution Guidelines:
 
@@ -46,9 +49,9 @@ ${data.tests}
 
 Please feel free to contact the author of this project at the following:
 
-[GitHub: ](https://github.com/${data.gitHubUsername})
+GitHub: <https://github.com/${data.gitHubUsername}>
 
-[Email: ]${data.email}
+Email:  <${data.email}>
 `;
 }
 
