@@ -25,7 +25,7 @@ You will need to install Node.js, npm, and inquirer before running this applicat
 
 ## Usage Information:
 
-Start first by cloning the repository at https://github.com/amiedawn/readme-generator . Then install the Node.js and the other necessary packages. Finally run the application in the terminal by typing “node index.js” and answer the questions. <br >The README file in markdown form will look similar to this:  ![Screenshot](assets/images/screenshot2.png)<br><br>The actual file that we want end users to see should look similar to this: ![Screenshot](assets/images/screenshot.png)
+Start first by cloning the repository at https://github.com/amiedawn/readme-generator . Then install the Node.js and the other necessary packages. Finally run the application in the terminal by typing “node index.js” and answer the questions.<br><br>The README file in markdown form will look similar to this:  ![Screenshot](./dist/assets/images/screenshot2.png)<br><br>The actual file that we want end users to see should look similar to this: ![Screenshot](./dist/assets/images/screenshot2.png)
 
 ## License:
 
